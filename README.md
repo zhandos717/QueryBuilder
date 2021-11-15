@@ -2,11 +2,17 @@ SQL Query Builder
 =================
 <a name="block1"></a>
 ## 1. Installation [↑](#index_block)
-The recommended way to install the SQL Query Builder is through [Composer](http://getcomposer.org). Run the following command to install it:
 
-```sh
-php composer.phar require nilportugues/sql-query-builder
+```php
+<?php
+include 'Connection.php';
+include 'QueryBuilder.php';
+$config = include 'config.php';
+
+return new QueryBuilder(Connection::make($config['database']));
+
 ```
+
 
 <a name="block2"></a>
 ## 2. The Builder [↑](#index_block)
