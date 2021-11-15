@@ -7,7 +7,7 @@ class QueryBuilder{
         $this->pdo = $pdo;
     }
     /**
-     * Discriptions: get records by ID
+     * Discriptions: Displaying all data from a table
      * @param string table Name
      * @param array  data 
      * @return array of data from the table
