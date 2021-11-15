@@ -20,6 +20,20 @@ class QueryBuilder{
         return  $statement->fetchAll(PDO::FETCH_ASSOC);
     }
     /**
+     * Discriptions: Finding Relevant Data
+     * @param string table Name
+     * @param array  data 
+     * @return array of data from the table
+     */
+    public function findLike(string $table, string $field, string $search): array
+    {
+        $sql = "SELECT * FROM {$table} WHERE {$field} LIKE %:{$field}%  ";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute([$field => $search]);
+        return  $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Discriptions: get records by ID
      * @param string table Name
      * @return array of data from the table

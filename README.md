@@ -8,7 +8,6 @@ SQL Query Builder
 <?php
 
 include 'src/QueryBuilder.php';
-
 $config = [
         'database'=> 'database',
         'username'=> 'username',
@@ -16,7 +15,6 @@ $config = [
         'connection'=> 'mysql:host=localhost',
         'charset' => 'utf8' 
     ];
-
  $pdo =  new PDO(
             "{$config['connection']};dbname={$config['database']};charset={$config['charset']}", 
             $config['username'], 
@@ -55,7 +53,7 @@ print_r($users);
 ```
 #### Output:
 ```sql
-SELECT * FROM users;
+SELECT * FROM `users`;
 ```
 <a name="block2.2"></a>
 ### 2.2. get records by ID [↑](#index_block)
@@ -83,7 +81,7 @@ print_r($users);
 ```
 #### Output:
 ```sql
-SELECT * FROM users WHERE id =1;
+SELECT * FROM `users` WHERE `id` =1;
 ```
 
 <a name="block2.3"></a>
@@ -112,7 +110,7 @@ print_r($users);
 ```
 #### Output:
 ```sql
-INSERT INTO users (email,name,age) VALUES ('examle@mail.com','John','24');
+INSERT INTO `users` (`email`,`name`,`age`) VALUES (`examle@mail.com`,`John`,`24`);
 ```
 
 <a name="block2.4"></a>
@@ -141,7 +139,7 @@ print_r($users);
 ```
 #### Output:
 ```sql
-UPDATE users SET email ='john@mail.com', name='John Doe' WHERE id = 1;
+UPDATE `users` SET `email` =`john@mail.com`, `name`=`John Doe` WHERE `id` = 1;
 ```
 
 <a name="block2.5"></a>
@@ -170,5 +168,34 @@ print_r($users);
 ```
 #### Output:
 ```sql
-DELETE FROM user WHERE id = 1;
+DELETE FROM `users` WHERE `id` = 1;
+```
+
+<a name="block2.6"></a>
+### 2.6. Finding Relevant Data [↑](#index_block)
+
+#### Usage:
+```php
+<?php
+include 'src/QueryBuilder.php';
+$config = [
+        'database'=> 'database',
+        'username'=> 'username',
+        'password'=> 'password',
+        'connection'=> 'mysql:host=localhost',
+        'charset' => 'utf8' 
+    ];
+ $pdo =  new PDO(
+            "{$config['connection']};dbname={$config['database']};charset={$config['charset']}", 
+            $config['username'], 
+            $config['password']
+        )
+$QueryBuilder =  new QueryBuilder($pdo);
+$users = $QueryBuilder->findLike('users','name','John');
+
+print_r($users);
+```
+#### Output:
+```sql
+SELECT * FROM `users` WHERE `name` LIKE '%John%';
 ```
